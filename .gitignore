@@ -1,16 +1,16 @@
-# Temporary extracted image files
-.temp/
-
-# Local VS Code config directory
-.vscode/
-
 # Files without an extension
 *
 !/**/
 !*.*
 
+# Temporary extracted image files
+.temp/
+
 # macOS stuff
 .DS_Store
+
+# Local VS Code config directory
+.vscode
 
 # Videos used for testing the program
 testvid*
