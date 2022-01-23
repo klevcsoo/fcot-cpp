@@ -1,0 +1,8 @@
+# Temporary extracted image files
+.temp/
+
+# Videos used for testing the program
+testvid*
+
+# Local VS Code config directory
+.vscode/
