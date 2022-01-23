@@ -6,3 +6,11 @@ testvid*
 
 # Local VS Code config directory
 .vscode/
+
+# Files without an extension
+*
+!/**/
+!*.*
+
+# macOS stuff
+.DS_Store
