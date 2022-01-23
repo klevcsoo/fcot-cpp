@@ -12,5 +12,9 @@
 # Local VS Code config directory
 .vscode
 
+# Build files
+main.*
+!main.cpp
+
 # Videos used for testing the program
 testvid*
