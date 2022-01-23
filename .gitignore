@@ -1,9 +1,6 @@
 # Temporary extracted image files
 .temp/
 
-# Videos used for testing the program
-testvid*
-
 # Local VS Code config directory
 .vscode/
 
@@ -14,3 +11,6 @@ testvid*
 
 # macOS stuff
 .DS_Store
+
+# Videos used for testing the program
+testvid*
