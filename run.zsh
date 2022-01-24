@@ -4,6 +4,11 @@ set -o localoptions -o localtraps
 
 trap 'rm ./main' INT
 
-gcc ./main.cpp -o ./main -lstdc++ -std=c++17
+echo "Building..."
+gcc main.cpp -std=c++17 -lstdc++ $(pkg-config --cflags --libs opencv) -o main 
+echo "Build succeeded!"
+
+clear
+
 ./main ${1} ${2}
 rm ./main
