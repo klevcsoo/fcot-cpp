@@ -8,9 +8,11 @@ using namespace std;
 namespace fs = filesystem;
 
 // Config
-const int TARGET_WIDTH = 2000;
-const int TARGET_HEIGHT = 500;
-const string WORK_DIR = ".temp";
+namespace Config {
+  const int TARGET_WIDTH = 2000;
+  const int TARGET_HEIGHT = 500;
+  const string WORK_DIR = ".temp";
+}
 
 // Can't leave out those ✨fancy✨ console output colours
 namespace ConsoleColours {
@@ -52,10 +54,10 @@ int main(int argc, char* argv[]) {
   const string output_file_path = (argc > 2) ? argv[2] : string(argv[1]) + ".png";
 
   // Emptying work directory
-  if (fs::is_directory(WORK_DIR)) {
-    fs::remove_all(WORK_DIR);
+  if (fs::is_directory(Config::WORK_DIR)) {
+    fs::remove_all(Config::WORK_DIR);
   }
-  fs::create_directory(WORK_DIR);
+  fs::create_directory(Config::WORK_DIR);
 
   // Checking input file existance
   if (!fs::exists(input_file_path)) {
@@ -74,7 +76,7 @@ int main(int argc, char* argv[]) {
 
     string d_str; execute(probe_cmd, d_str);
     duration = stof(d_str.substr(9));
-    rate = duration / TARGET_WIDTH;
+    rate = duration / Config::TARGET_WIDTH;
   }
 
   // Extracting frames
@@ -82,7 +84,7 @@ int main(int argc, char* argv[]) {
   string ffmpeg_output;
   {
     const string ffmpeg_cmd = "ffmpeg -loglevel fatal -i " + input_file_path +
-    " -s 100x100 -r 1/" + to_string(rate) + " " + WORK_DIR + "/frame%03d.bmp";
+    " -s 100x100 -r 1/" + to_string(rate) + " " + Config::WORK_DIR + "/frame%03d.bmp";
     execute(ffmpeg_cmd, ffmpeg_output);
   }
   if (!ffmpeg_output.empty()) {
