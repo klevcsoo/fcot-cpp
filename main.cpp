@@ -24,16 +24,6 @@ namespace console_colours {
   const string NORMAL = "\033[0m";
 }
 
-struct PixelColour {
-  uchar R;
-  uchar G;
-  uchar B;
-
-  PixelColour(const uchar* r, const uchar* g, const uchar* b) {
-    this->R = *r; this->G = *g; this->B = *b;
-  }
-};
-
 // Executes a command by opening a new shell using popen() and
 // pipes the output to the given string.
 int execute(string cmd, string& output) {
