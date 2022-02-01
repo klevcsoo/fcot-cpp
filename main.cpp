@@ -122,10 +122,10 @@ int main(int argc, char* argv[]) {
 
     colours.push_back(img_b.at<cv::Vec3b>(cv::Point(50, 50)));
 
-    const int progress_percent = (size(colours) / size(extracted_files)) * 100;
+    const int progress_percent = (
+      (double_t)size(colours) / (double_t)size(extracted_files)
+    ) * 100.0;
     cout << "\r[INFO] Calculating colours (" << progress_percent << "%)";
-
-    // delete &img; delete &img_b;
   }
   cout << endl;
 
