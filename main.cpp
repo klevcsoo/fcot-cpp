@@ -24,6 +24,16 @@ namespace console_colours {
   const string NORMAL = "\033[0m";
 }
 
+struct PixelColour {
+  uchar R;
+  uchar G;
+  uchar B;
+
+  PixelColour(const uchar* r, const uchar* g, const uchar* b) {
+    this->R = *r; this->G = *g; this->B = *b;
+  }
+};
+
 // Executes a command by opening a new shell using popen() and
 // pipes the output to the given string.
 int execute(string cmd, string& output) {
@@ -106,9 +116,10 @@ int main(int argc, char* argv[]) {
   cout << "[INFO] Calculating colours";
   vector<cv::Vec3b> colours;
   for (const auto& filename : extracted_files) {
-    const cv::Mat img = cv::imread(filename);
-    cv::Mat img_b;
+    const cv::Mat3b img = cv::imread(filename);
+    cv::Mat3b img_b;
     cv::GaussianBlur(img, img_b, cv::Size(99, 99), 0);
+
     colours.push_back(img_b.at<cv::Vec3b>(cv::Point(50, 50)));
 
     const int progress_percent = (size(colours) / size(extracted_files)) * 100;
@@ -120,13 +131,14 @@ int main(int argc, char* argv[]) {
 
   // Creating output picture based on colour data
   const int actual_width = size(colours); // should be equal to TARGET_WIDTH, but you never know
-  cv::Mat out_img = cv::Mat::zeros(cv::Size(actual_width, config::TARGET_HEIGHT), CV_8UC1);
-  for (int x = 0; x < out_img.cols; x++) {
-    const cv::Vec3b& c = colours[x];
-    for (int y = 0; y < out_img.rows; y++) {
-      out_img.at<cv::Vec3b>(cv::Point(x, y)) = c;
+  cv::Mat3b out_img = cv::Mat::zeros(cv::Size(actual_width, config::TARGET_HEIGHT), CV_8UC1);
+
+  for (int x = 0; x < out_img.rows; x++) {
+    for (int y = 0; y < out_img.cols; y++) {
+      out_img.at<cv::Vec3b>(x, y) = colours[y];
     }
   }
+
   cv::imwrite(output_file_path, out_img);
   cout << "[INFO] Done! Work time: " << work_time << " seconds" << endl;
   cout << "[INFO] Output file: " << output_file_path << endl;
